@@ -1,0 +1,43 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure("2") do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  config.vm.box = "centos7"
+  config.vm.synced_folder '.', '/vagrant', :disabled => true
+  config.vm.provider :libvirt do |domain|
+    domain.memory = 2048
+  end
+
+  config.vm.define :n9k do |node|
+    node.ssh.insert_key = false
+    node.vm.guest = :nxos
+    node.vm.box = 'n9k'
+    node.vm.provider :libvirt do |libvirt|
+      libvirt.cpus = 2
+      libvirt.memory = 8096
+      libvirt.disk_bus = :sata
+      libvirt.loader = '/usr/share/qemu/OVMF.fd'
+      libvirt.storage :file, :device => :cdrom, :bus => :ide, :type=> :raw , :path => '/home/skamithi/VirtualMachines/nxosv_config.iso'
+      libvirt.nic_model_type = 'e1000'
+      # enable these sections for debugging. Telnet to localhost port 9999 to
+      # access VM console
+      libvirt.qemuargs :value => '-serial'
+      libvirt.qemuargs :value => 'telnet:localhost:9999,server,nowait'
+    end
+    node.vm.provision :ansible do |ansible|
+      ansible.playbook = "n9k.yml"
+      ansible.verbose = 'vvvvvv'
+    end
+
+  end
+
+end

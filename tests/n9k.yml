@@ -1,0 +1,13 @@
+---
+- hosts: all
+  gather_facts: no
+  connection: network_cli
+  become: yes
+  become_method: sudo
+  become_flags: "vsh -c"
+  vars:
+    ansible_network_os: nxos
+  tasks:
+    - nxos_command:
+        commands: show version
+

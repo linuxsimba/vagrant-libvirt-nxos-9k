@@ -1,3 +1,7 @@
+*.log
+tests/Vagrantfile*
+tests/*.iso
+*.qcow2
 *.retry
 tests/.vagrant/
 vendor/

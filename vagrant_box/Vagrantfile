@@ -1,0 +1,29 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+
+nxos_config_path = ENV.fetch('NXOS_CONFIG_PATH') {
+  "#{ENV['PWD']}/.vagrant.d/boxes/n9k/0/libvirt/"
+}
+
+uefi_loader_path = ENV.fetch('UEFI_LOADER_PATH') {
+  "/usr/share/edk2.git/ovmf-x64/OVMF_CODE-pure-efi.fd"
+}
+
+Vagrant.configure("2") do |config|
+  config.vm.provider :libvirt do |libvirt|
+    libvirt.disk_bus = :sata
+    libvirt.nic_model_type = 'e1000'
+    libvirt.memory = 8192
+    libvirt.cpus = 2
+    libvirt.storage :file, :device => :cdrom, :bus => :ide, :type=> :raw , :path => "#{nxos_config_path}/nxosv_config.iso"
+    libvirt.loader = uefi_loader_path
+  end
+  config.vm.synced_folder "." "/vagrant", disabled: true
+  config.ssh.insert_key = false
+  config.vm.guest = :nxos
+end

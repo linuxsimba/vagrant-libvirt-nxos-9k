@@ -1,0 +1,25 @@
+---
+- hosts: all
+  roles:
+    - role: ansible-role-repo-epel
+      become: yes
+  tasks:
+    - name: install ansible
+      yum:
+        name: ansible
+        state: latest
+      become: yes
+    - name: copy the private key onto the ansible server
+      copy:
+        src: "{{ lookup('env', 'HOME')}}/.vagrant.d/insecure_private_key"
+        dest: private_key
+        mode: 0400
+    - name: create a new inventory file based on the one provided by vagrant
+      template:
+        src: ansible_server/create_inventory.j2
+        dest: inventory.yml
+
+    - name: install test playbook
+      copy:
+        src: ansible_server/test_playbook.yml
+        dest: playbook.yml

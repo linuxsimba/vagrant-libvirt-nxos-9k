@@ -1,0 +1,8 @@
+# This playbook runs on the ansible server.
+---
+- hosts: cisco
+  connection: network_cli
+  tasks:
+    - nxos_command:
+        commands:
+          - show version

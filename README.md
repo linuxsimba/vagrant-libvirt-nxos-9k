@@ -15,7 +15,7 @@ This project is composed of the following parts
 
 ## Create a Custom vagrant box
 
-Follow the README found in the ``vagrant_box/`` directory to create and install
+Follow the [README](./vagrant_box/README.md) found in the ``vagrant_box/`` directory to create and install
 the custom nexus 9k vagrant box for a libvirt environment.
 
 
@@ -35,6 +35,12 @@ vagrant plugin install  vagrant-nxos-1.0.gem
 good idea to set the ``boot nxos <bootfile>`` command to the version of nexus 9k
 software you are using. This way on reboot of the VM it will boot the image and
 not send show the ``loader>`` prompt.
+* Create a ISO image with the modified config
+```
+  cd tests
+  rm nxosv_config.iso
+  mkisofs -l -o nxosv_config.iso iso 
+```
 
 * Download the [GNS3 OVMF
   file](https://sourceforge.net/projects/gns-3/files/Qemu%20Appliances/OVMF-20160813.fd.zip/download) to the ``tests`` directory. This adds UEFI support.
@@ -45,5 +51,5 @@ not send show the ``loader>`` prompt.
   variables for the UEFI and NXOS config files
 
 ```
-NXOS_CONFIG_PATH=/home/skamithi/git/vagrant-nxos/tests/ UEFI_LOADER_PATH=/usr/share/ovmf/OVMF.fd vagrant up
+NXOS_CONFIG_PATH=/home/linuxsimba/git/vagrant-nxos/tests/ UEFI_LOADER_PATH=/home/linuxsimba/git/vagrant-nxos/tests//OVMF.fd vagrant up
 ```

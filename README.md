@@ -36,8 +36,8 @@ good idea to set the ``boot nxos <bootfile>`` command to the version of nexus 9k
 software you are using. This way on reboot of the VM it will boot the image and
 not send show the ``loader>`` prompt.
 
-* Download the (GNS3 OVMF
-  file)[https://sourceforge.net/projects/gns-3/files/Qemu%20Appliances/OVMF-20160813.fd.zip/download] to the ``tests`` directory. This adds UEFI support.
+* Download the [GNS3 OVMF
+  file](https://sourceforge.net/projects/gns-3/files/Qemu%20Appliances/OVMF-20160813.fd.zip/download) to the ``tests`` directory. This adds UEFI support.
 * Run "vagrant init <name of the custom box>" to generate a initial vagrant
   file.
 

@@ -7,7 +7,7 @@
 # you're doing.
 
 nxos_config_path = ENV.fetch('NXOS_CONFIG_PATH') {
-  "#{ENV['PWD']}/.vagrant.d/boxes/n9k/0/libvirt/"
+  "#{ENV['HOME']}/.vagrant.d/boxes/n9k/0/libvirt"
 }
 
 uefi_loader_path = ENV.fetch('UEFI_LOADER_PATH') {

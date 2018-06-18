@@ -1,3 +1,5 @@
+*/box.img
+*.box
 *.log
 tests/Vagrantfile*
 tests/*.iso
